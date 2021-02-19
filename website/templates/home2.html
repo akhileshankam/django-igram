@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    *{
+    margin:0;
+    padding:0;
+    }
+        h2{
+        background-color:red
+        }
+       .main{
+       display:flex;
+       align-items:center;
+       justify-content:space-between;
+       }
+       .bes2{
+       position:relative;
+       transform:translate(20% ,-100%);
+       }
+ .main .links a{
+ margin-right:15px;
+text-decoration:none;
+ }
+ h2{
+ margin:0;
+ }
+
+
+   </style>
+</head>
+
+
+
+<body>
+<div class="main">
+    <span>
+welcome {{ request.user.username }}
+    </span>
+<h3 class="links"><a href="/logout/">logout</a>
+    <a href="/myprofile/">myprofile</a>
+    <a href="/chatform/">messages</a></h3>
+
+</div>
+<h2>IGRAM</h2>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li>{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% for i in data %}
+<div class="des">
+<form method="POST" action="/likeb/" class="bes1">
+     {% csrf_token %}
+   {{ i.title }}<br>
+<img src ="{{ i.image.url}}" width="900" height="500"><br>
+
+   <input value="{{ i.title }}" hidden name="post_title">
+    {% if user  not in i.likes2.all %}
+    <input type="submit"  value="like" >
+    {% else %}
+    <input type="submit"  value="unlike" >
+    {% endif %}
+    {{ i.likes2.all.count }} persons liked
+    <select id="cars" name="carlist" >
+     {% for j in i.likes2.all %}
+
+  <option value="{{j}}">{{j}}</option>
+       {% endfor %}
+</select>
+
+
+</form>
+<form method="POST" action="/comments/" class="bes2">
+    {% csrf_token %}
+    comment:<input type="text" name="com" >
+    <input value="{{i.title}}" hidden name="ptitle">
+    <input value="{{ request.user.username}}" hidden name="username">
+    <input type="submit" value="post">
+</form>
+</div>
+<button  id="comid" value="comments" >comments</button>
+
+<div class="comm2" id="com2id">
+{% for k in data2 %}
+{% if k.title == i.title %}
+{{k.username}}:{{k.text}}<br>
+{% endif %}
+{% endfor %}
+</div>
+
+{% endfor %}
+<script>
+
+   document.getElementById("comid").addEventListener("click",function()
+   {
+   var ab=document.getElementById("com2id");
+   if(ab.style.display=="none")
+   {
+   ab.style.display="block";
+   }
+   else
+   {
+   ab.style.display="none";
+   }
+   });
+</script>
+
+</body>
+
+</html>

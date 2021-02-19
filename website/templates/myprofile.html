@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2> welcome  {{user.username}}</h2>
+<a href="/logout/">logout</a>
+{% for i in data %}
+   {{ i.title }}<br>
+<img src ="{{ i.image.url}}" width="900" height="500"><br>
+<form>
+    {% csrf_token %}
+    <input type="submit" value="like">
+</form>
+
+{% endfor %}
+
+</body>
+<a href="http://127.0.0.1:8000/">home</a>
+<form action="/login/" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="text" name="title" placeholder="enter title"><br>
+
+    <input type="file" name="image" ><br>
+    <input type="submit" value="post">
+</form>
+</html>

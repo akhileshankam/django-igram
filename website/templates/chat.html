@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .outbox{
+        background-color:green
+        }
+        .mess{
+        color:blue
+        }
+    </style>
+</head>
+<body>
+<h2 class="outbox">welcome to messages</h2>
+{% for i in data %}
+<form method="POST" action="/chatresponse/">
+    {% csrf_token %}
+
+    <input value="{{request.user.username}}" hidden name="fromusername"><br>
+    To username:<input value="{{i.username}}" name="tousername"><br>
+{% for j in data2 %}
+{% if request.user.username == j.tousername %}
+    {% if i.username == j.fromusername %}
+<a class="mess">{{j.fromusername }}:{{ j.mssg }}<br></a>
+      {% endif %}
+     {% endif %}
+    {% if request.user.username == j.fromusername %}
+    {% if i.username == j.tousername %}
+    you:{{ j.mssg }}<br>
+
+
+{% endif %}
+    {% endif %}
+{% endfor %}
+
+    message:<input type="text" name="text">
+    <input type="submit" value=">>"><br>
+
+</form>
+{% endfor %}
+</body>
+</html>

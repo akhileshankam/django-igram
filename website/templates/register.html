@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>register here</h1>
+<form method="POST" action="/register/">
+     {% csrf_token %}
+    username:<br>
+    <input type="username" name="username" placeholder="username"><br>
+    password:<br>
+    <input type="password" name="password" placeholder="enter password"><br>
+    confirm password:<br>
+    <input type="password" name="cpassword" placeholder="enter password"><br>
+    email id:<br>
+    <input type="email" name="email" placeholder="enter your emailid"><br>
+    <input type="submit">
+</form>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li>{% if message.tags %} {% endif %} {{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+</body>
+<a href="http://127.0.0.1:8000/"></a>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        h2{
+        background-color:red
+        }
+    </style>
+</head>
+<h3><a href="/signup/" >signup</a></h3>
+<h3><a href="/login2/">login</a></h3>
+
+<body>
+<h2>IGRAM</h2>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li>{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% for i in data %}
+<form method="POST" action="">
+   {{ i.title }}<br>
+<img src ="{{ i.image.url}}" width="900" height="500"><br>
+
+    {% csrf_token %}
+    <input type="submit" value="like" >
+</form>
+{% endfor %}
+
+</body>
+
+</html>
